@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://deo4ylt01mlbv"]
+
+[ext_resource type="Script" uid="uid://cslsd81o1g4js" path="res://objects/water/water.gd" id="1_obgid"]
+[ext_resource type="Shader" uid="uid://bpb5cigyvofj1" path="res://effects/shaders/water.gdshader" id="1_oxqd1"]
+[ext_resource type="Texture2D" uid="uid://bdy1tmbnbcdbm" path="res://objects/water/water.png" id="3_mat55"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_obgid"]
+render_priority = 0
+shader = ExtResource("1_oxqd1")
+shader_parameter/tex = ExtResource("3_mat55")
+shader_parameter/uv_scale = Vector2(50, 50)
+shader_parameter/amplitude = 0.1
+shader_parameter/frequency = 4.0
+shader_parameter/scale = 10.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cdibe"]
+size = Vector2(200, 200)
+subdivide_width = 32
+subdivide_depth = 32
+
+[node name="Water" type="Node3D"]
+script = ExtResource("1_obgid")
+
+[node name="WaterMesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_obgid")
+mesh = SubResource("PlaneMesh_cdibe")

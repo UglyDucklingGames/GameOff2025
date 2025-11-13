@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://lmb1emrrrrsu"]
+
+[ext_resource type="Shader" uid="uid://b2gagcurclva3" path="res://effects/shaders/sky.gdshader" id="1_8hsv0"]
+
+[sub_resource type="Gradient" id="Gradient_0wfyh"]
+offsets = PackedFloat32Array(0, 0.05691057, 0.25203252, 0.43495935, 0.49186993, 0.55284554, 0.93495935, 1)
+colors = PackedColorArray(1, 0.36078432, 0.88235295, 1, 0.62352943, 0.78039217, 1, 1, 0.62352943, 0.78039217, 1, 1, 0.62352943, 0.78039217, 1, 1, 1, 0.36078432, 0.88235295, 1, 0.14509805, 0.011764706, 0.43137255, 1, 0.14509805, 0.011764706, 0.43137255, 1, 1, 0.36078432, 0.88235295, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sugp2"]
+gradient = SubResource("Gradient_0wfyh")
+
+[resource]
+shader = ExtResource("1_8hsv0")
+shader_parameter/colour_gradient = SubResource("GradientTexture1D_sugp2")
+shader_parameter/day_progress = 0.1499999966472

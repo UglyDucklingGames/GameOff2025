@@ -11,13 +11,18 @@ const ACCEL_LAND:float = 10.0
 const GRAVITY_WATER:float = -1.0
 const JUMP_FORCE:float = 5.0
 
+const HEIGHT:float = 1.75
+
 # Object references
 @onready var neck_h: Node3D = %NeckH
 @onready var neck_v: Node3D = %NeckV
+@onready var camera: Camera3D = %Camera
+@onready var water_overlay: ColorRect = %WaterOverlay
 
 var debug_mode:bool = false
 
-var in_water:bool = false
+var in_water:bool = true
+var head_in_water:bool = true
 var speed:float = BASE_SPEED
 
 
@@ -30,12 +35,28 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_process_input()
 	
+	_calculate_in_water()
+	
 	if in_water:
 		_move_water(delta)
 	else:
 		_move_land(delta)
 
 
+func _calculate_in_water() -> void:
+	var old_in_water:bool = in_water
+	in_water = global_position.y <= Water.WATER_HEIGHT - (HEIGHT*0.25)
+	
+	# When leaving water
+	if old_in_water != in_water and !in_water and velocity.y > 0:
+		velocity.y = JUMP_FORCE*0.5
+	
+	# Visuals
+	head_in_water = camera.global_position.y <= Water.WATER_HEIGHT
+	water_overlay.visible = head_in_water
+
+
+## Get WASD horizontal movement vector.
 func get_input_dir() -> Vector2:
 	return Input.get_vector(&"move_left", &"move_right", &"move_forward", &"move_backward")
 
@@ -99,10 +120,6 @@ func _process_input() -> void:
 	# Quit game TODO remove this
 	if Input.is_action_just_pressed(&"ui_cancel"):
 		get_tree().quit()
-	
-	# Toggle water/land movement
-	if Input.is_action_just_pressed(&"debug_modeswitch"):
-		in_water = !in_water
 
 
 func _unhandled_input(event: InputEvent) -> void:
