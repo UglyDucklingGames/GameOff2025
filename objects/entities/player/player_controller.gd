@@ -18,12 +18,15 @@ const HEIGHT:float = 1.75
 @onready var neck_v: Node3D = %NeckV
 @onready var camera: Camera3D = %Camera
 @onready var water_overlay: ColorRect = %WaterOverlay
+@onready var depth_guage: Label = %DepthGuage
 
 var debug_mode:bool = false
 
 var in_water:bool = true
 var head_in_water:bool = true
 var speed:float = BASE_SPEED
+
+var depth:float
 
 
 func _ready() -> void:
@@ -41,6 +44,9 @@ func _physics_process(delta: float) -> void:
 		_move_water(delta)
 	else:
 		_move_land(delta)
+	
+	depth = Water.get_depth(global_position.y)
+	depth_guage.text = "Depth: " + "%.1f" % depth + "m"
 
 
 func _calculate_in_water() -> void:

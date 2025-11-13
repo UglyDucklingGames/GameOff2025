@@ -17,6 +17,8 @@ func _ready() -> void:
 	ray.enabled = false # only collide when required
 	add_child(ray)
 	
+	global_position.y = Water.WATER_HEIGHT # start from water height
+	
 	# Place treasure a random number of times
 	for _n:int in randi_range(TREASURE_MIN, TREASURE_MAX):
 		_find_treasure_spot()

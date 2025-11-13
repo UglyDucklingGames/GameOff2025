@@ -8,7 +8,7 @@ uniform float frequency = 1.0;
 uniform float scale = 1.0;
 
 void vertex() {
-	VERTEX.y = (sin(VERTEX.x*scale + TIME*frequency) + cos(VERTEX.z*scale + TIME*frequency)) * amplitude;
+	VERTEX.y += (sin(VERTEX.x*scale + TIME*frequency) + cos(VERTEX.z*scale + TIME*frequency)) * amplitude;
 }
 
 void fragment() {

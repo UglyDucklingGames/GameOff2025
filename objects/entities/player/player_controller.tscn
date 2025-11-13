@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" uid="uid://0ip585vtfqwm" path="res://objects/entities/player/player_controller.gd" id="1_7ffag"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crjgh"]
-height = 1.75
+[sub_resource type="BoxShape3D" id="BoxShape3D_7ffag"]
+size = Vector3(0.75, 1.75, 0.75)
 
 [node name="PlayerController" type="CharacterBody3D"]
 script = ExtResource("1_7ffag")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
-shape = SubResource("CapsuleShape3D_crjgh")
+shape = SubResource("BoxShape3D_7ffag")
 
 [node name="NeckH" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -33,3 +33,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 1, 1, 0.49803922)
+
+[node name="DepthGuage" type="Label" parent="UI"]
+unique_name_in_owner = true
+offset_left = 27.0
+offset_top = 25.0
+offset_right = 83.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 32
+text = "Depth: "

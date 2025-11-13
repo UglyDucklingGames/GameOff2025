@@ -21,7 +21,7 @@ data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0,
 [node name="PlayerController" parent="." instance=ExtResource("1_jbqir")]
 
 [node name="TestSurface" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.2087555, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9979849, 0.06345242, 0, -0.06345242, 0.9979849, 0, -10.2087555, 0)
 mesh = SubResource("PlaneMesh_v45ci")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TestSurface"]
@@ -30,7 +30,7 @@ mesh = SubResource("PlaneMesh_v45ci")
 shape = SubResource("ConcavePolygonShape3D_48ne7")
 
 [node name="TestSurface2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.189365, -19.79316, -8.662485)
+transform = Transform3D(0.99603796, -0.08892907, 0, 0.08892907, 0.99603796, 0, 0, 0, 1, -44.903606, -19.79316, -12.629641)
 mesh = SubResource("PlaneMesh_v45ci")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TestSurface2"]

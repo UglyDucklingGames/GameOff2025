@@ -12,4 +12,4 @@ gradient = SubResource("Gradient_0wfyh")
 [resource]
 shader = ExtResource("1_8hsv0")
 shader_parameter/colour_gradient = SubResource("GradientTexture1D_sugp2")
-shader_parameter/day_progress = 0.1499999966472
+shader_parameter/day_progress = 0.1
