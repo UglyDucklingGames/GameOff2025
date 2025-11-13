@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bm5p6hcm2uox"]
+[gd_scene load_steps=8 format=3 uid="uid://bm5p6hcm2uox"]
 
 [ext_resource type="PackedScene" uid="uid://durgj0plulxl3" path="res://objects/entities/player/player_controller.tscn" id="1_jbqir"]
 [ext_resource type="Texture2D" uid="uid://bl0whf7c6raux" path="res://icon.svg" id="2_yautc"]
 [ext_resource type="PackedScene" uid="uid://deo4ylt01mlbv" path="res://objects/water/water.tscn" id="3_fr1um"]
+[ext_resource type="Script" uid="uid://devu02a5vu7pu" path="res://scripts/treasure_placer.gd" id="4_v45ci"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fr1um"]
 albedo_texture = ExtResource("2_yautc")
@@ -20,7 +21,7 @@ data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0,
 [node name="PlayerController" parent="." instance=ExtResource("1_jbqir")]
 
 [node name="TestSurface" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.2087555, 0)
 mesh = SubResource("PlaneMesh_v45ci")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TestSurface"]
@@ -28,4 +29,17 @@ mesh = SubResource("PlaneMesh_v45ci")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TestSurface/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_48ne7")
 
+[node name="TestSurface2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.189365, -19.79316, -8.662485)
+mesh = SubResource("PlaneMesh_v45ci")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TestSurface2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestSurface2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_48ne7")
+
 [node name="Water" parent="." instance=ExtResource("3_fr1um")]
+
+[node name="TreasurePlacer" type="Node3D" parent="."]
+script = ExtResource("4_v45ci")
+metadata/_custom_type_script = "uid://devu02a5vu7pu"
