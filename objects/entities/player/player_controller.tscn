@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://durgj0plulxl3"]
+
+[ext_resource type="Script" uid="uid://0ip585vtfqwm" path="res://objects/entities/player/player_controller.gd" id="1_7ffag"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_crjgh"]
+height = 1.75
+
+[node name="PlayerController" type="CharacterBody3D"]
+script = ExtResource("1_7ffag")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CapsuleShape3D_crjgh")
+
+[node name="NeckH" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="NeckV" type="Node3D" parent="NeckH"]
+unique_name_in_owner = true
+
+[node name="Camera" type="Camera3D" parent="NeckH/NeckV"]
