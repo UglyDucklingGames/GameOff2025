@@ -13,11 +13,16 @@ const JUMP_FORCE:float = 5.0
 
 const HEIGHT:float = 1.75
 
+const LUNG_OXYGEN_MAX:float = 5.0
+const BASE_OXYGEN:float = 20.0
+const OXYGEN_REPLENISH_RATE:float = 5.0
+
 # Object references
 @onready var neck_h: Node3D = %NeckH
 @onready var neck_v: Node3D = %NeckV
 @onready var camera: Camera3D = %Camera
 @onready var water_overlay: ColorRect = %WaterOverlay
+@onready var suffocation_overlay: ColorRect = %SuffocationOverlay
 @onready var depth_guage: Label = %DepthGuage
 @onready var interact_ray: RayCast3D = %InteractRay
 @onready var interact_text: Label = %InteractText
@@ -30,6 +35,10 @@ var speed:float = BASE_SPEED
 
 var depth:float
 
+var oxygen_capacity:float = BASE_OXYGEN
+var oxygen:float = oxygen_capacity
+var lung_oxygen:float = LUNG_OXYGEN_MAX # last resort before death
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED # capture mouse when player is active
@@ -41,6 +50,7 @@ func _physics_process(delta: float) -> void:
 	_process_input()
 	
 	_calculate_in_water()
+	_process_oxygen(delta)
 	
 	if in_water:
 		_move_water(delta)
@@ -51,6 +61,7 @@ func _physics_process(delta: float) -> void:
 	depth = Water.get_depth(global_position.y)
 	depth_guage.text = "Depth: " + "%.1f" % depth + "m"
 	depth_guage.text += "\nMoney: " + str(PlayerData.get_money())
+	depth_guage.text += "\nO2: " + "%.1f" % oxygen + "s"
 	
 	_process_interaction()
 
@@ -82,6 +93,30 @@ func _calculate_in_water() -> void:
 	# Visuals
 	head_in_water = camera.global_position.y <= Water.WATER_HEIGHT
 	water_overlay.visible = head_in_water
+
+
+## Handle oxygen levels and drowning.
+func _process_oxygen(delta: float) -> void:
+	if head_in_water:
+		# Drain oxygen (1 point per second)
+		oxygen = move_toward(oxygen, 0, delta)
+		
+		# Drain oxygen in lungs if out of tank oxygen
+		if oxygen <= 0.0:
+			lung_oxygen = move_toward(lung_oxygen, 0, delta)
+			
+			# Fade in blackness until dead
+			suffocation_overlay.show()
+			suffocation_overlay.color.a = 1.0 - (lung_oxygen / LUNG_OXYGEN_MAX)
+			
+			# Kill if out of lung oxygen
+			if lung_oxygen <= 0.0:
+				get_tree().quit() # you died
+	else:
+		# Replenish oxygen (OXYGEN_REPLENISH_RATE points per second)
+		oxygen = move_toward(oxygen, oxygen_capacity, OXYGEN_REPLENISH_RATE*delta)
+		lung_oxygen = LUNG_OXYGEN_MAX # instantly replenish lung oxygen
+		suffocation_overlay.hide() # hide suffocation overlay
 
 
 ## Get WASD horizontal movement vector.
