@@ -8,7 +8,7 @@ const BASE_SPEED:float = 5.0 # default movement speed m/s.
 const ACCEL_WATER:float = 5.0
 const ACCEL_LAND:float = 10.0
 
-const GRAVITY_WATER:float = -1.0
+const GRAVITY_WATER:float = -0.5 # was -1.0
 const JUMP_FORCE:float = 5.0
 
 const HEIGHT:float = 1.75
@@ -86,9 +86,14 @@ func _calculate_in_water() -> void:
 	# TODO use depth value for this instead
 	in_water = global_position.y <= Water.WATER_HEIGHT - (HEIGHT*0.25)
 	
-	# When leaving water
-	if old_in_water != in_water and !in_water and velocity.y > 0:
-		velocity.y = JUMP_FORCE*0.5
+	# When entering or exiting water
+	if old_in_water != in_water:
+		# When leaving water
+		if !in_water and velocity.y > 0:
+			velocity.y = JUMP_FORCE*0.5
+		
+		var underwater_objects:Node3D = get_tree().get_first_node_in_group(&"underwater")
+		underwater_objects.visible = in_water
 	
 	# Visuals
 	head_in_water = camera.global_position.y <= Water.WATER_HEIGHT

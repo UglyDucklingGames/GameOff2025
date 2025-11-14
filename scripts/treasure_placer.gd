@@ -1,7 +1,8 @@
 ## Node that handles random treasure placement.
 class_name TreasurePlacer extends Node3D
 
-const MAXIMUM_DEPTH:int = -1000 # lowest depth of treasure spawn
+const MINIMUM_DEPTH:int = 3 # highest depth of treasure spawn
+const MAXIMUM_DEPTH:int = -250 # lowest depth of treasure spawn
 const TREASURE_MIN:int = 35 # minimum number of treasure items
 const TREASURE_MAX:int = 50 # maximum number of treasure items
 const MAP_SQUARE_RADIUS:int = 100 # half the map size
@@ -42,7 +43,9 @@ func _find_treasure_spot() -> void:
 	ray.force_raycast_update()
 	
 	# Find a new position until valid
-	while !ray.is_colliding() or Vector2(global_position.x, global_position.z) in used_locations:
+	while !ray.is_colliding() \
+	or Vector2(global_position.x, global_position.z) in used_locations \
+	or Water.get_depth(ray.get_collision_point().y) < MINIMUM_DEPTH:
 		ray.force_raycast_update()
 		_go_to_random()
 	

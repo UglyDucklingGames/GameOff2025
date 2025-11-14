@@ -22,5 +22,46 @@ subdivide_depth = 32
 script = ExtResource("1_obgid")
 
 [node name="WaterMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+material_override = SubResource("ShaderMaterial_obgid")
+mesh = SubResource("PlaneMesh_cdibe")
+
+[node name="WaterMesh2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200, -10, 0)
+material_override = SubResource("ShaderMaterial_obgid")
+mesh = SubResource("PlaneMesh_cdibe")
+
+[node name="WaterMesh3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, -10, 0)
+material_override = SubResource("ShaderMaterial_obgid")
+mesh = SubResource("PlaneMesh_cdibe")
+
+[node name="WaterMesh4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, -10, -200)
+material_override = SubResource("ShaderMaterial_obgid")
+mesh = SubResource("PlaneMesh_cdibe")
+
+[node name="WaterMesh5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, -200)
+material_override = SubResource("ShaderMaterial_obgid")
+mesh = SubResource("PlaneMesh_cdibe")
+
+[node name="WaterMesh6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200, -10, -200)
+material_override = SubResource("ShaderMaterial_obgid")
+mesh = SubResource("PlaneMesh_cdibe")
+
+[node name="WaterMesh7" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 200, -10, 200)
+material_override = SubResource("ShaderMaterial_obgid")
+mesh = SubResource("PlaneMesh_cdibe")
+
+[node name="WaterMesh8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 200)
+material_override = SubResource("ShaderMaterial_obgid")
+mesh = SubResource("PlaneMesh_cdibe")
+
+[node name="WaterMesh9" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, -10, 200)
 material_override = SubResource("ShaderMaterial_obgid")
 mesh = SubResource("PlaneMesh_cdibe")
