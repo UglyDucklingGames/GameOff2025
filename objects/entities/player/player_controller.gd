@@ -19,6 +19,8 @@ const HEIGHT:float = 1.75
 @onready var camera: Camera3D = %Camera
 @onready var water_overlay: ColorRect = %WaterOverlay
 @onready var depth_guage: Label = %DepthGuage
+@onready var interact_ray: RayCast3D = %InteractRay
+@onready var interact_text: Label = %InteractText
 
 var debug_mode:bool = false
 
@@ -45,12 +47,32 @@ func _physics_process(delta: float) -> void:
 	else:
 		_move_land(delta)
 	
+	# Depth guage
 	depth = Water.get_depth(global_position.y)
 	depth_guage.text = "Depth: " + "%.1f" % depth + "m"
+	depth_guage.text += "\nMoney: " + str(PlayerData.get_money())
+	
+	_process_interaction()
 
 
+## Handle all mouse interaction.
+func _process_interaction() -> void:
+	if interact_ray.is_colliding() and interact_ray.get_collider() is InteractZone:
+		# Display text
+		var interact_zone:InteractZone = interact_ray.get_collider() as InteractZone
+		interact_text.text = interact_zone.get_string()
+		
+		# Interaction
+		if Input.is_action_just_pressed(&"interact"):
+			interact_zone.interact()
+	else:
+		interact_text.text = ""
+
+
+## Handle all water/land determination logic.
 func _calculate_in_water() -> void:
 	var old_in_water:bool = in_water
+	# TODO use depth value for this instead
 	in_water = global_position.y <= Water.WATER_HEIGHT - (HEIGHT*0.25)
 	
 	# When leaving water

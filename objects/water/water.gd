@@ -1,3 +1,4 @@
+@tool
 class_name Water extends Node3D
 
 const WATER_HEIGHT:float = -10.0

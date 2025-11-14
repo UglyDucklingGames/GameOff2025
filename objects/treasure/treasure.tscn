@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bi61u8a21hrow"]
+
+[ext_resource type="Script" uid="uid://w5vwaxqls4en" path="res://objects/treasure/treasure.gd" id="1_4q17a"]
+[ext_resource type="Script" uid="uid://dvoabu2p4h8yj" path="res://scripts/interact_zone.gd" id="1_bvjoq"]
+[ext_resource type="Material" uid="uid://dsus3xatlqi32" path="res://effects/shaders/treasure_material.tres" id="2_qf577"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_yy24e"]
+radial_segments = 8
+rings = 4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yy24e"]
+
+[node name="Treasure" type="Node3D"]
+script = ExtResource("1_4q17a")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+material_override = ExtResource("2_qf577")
+mesh = SubResource("SphereMesh_yy24e")
+
+[node name="InteractZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+collision_layer = 0
+script = ExtResource("1_bvjoq")
+metadata/_custom_type_script = "uid://dvoabu2p4h8yj"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractZone"]
+shape = SubResource("BoxShape3D_yy24e")
+
+[connection signal="interacted" from="InteractZone" to="." method="_on_interact_zone_interacted"]

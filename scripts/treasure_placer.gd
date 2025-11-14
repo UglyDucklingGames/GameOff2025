@@ -1,9 +1,12 @@
+## Node that handles random treasure placement.
 class_name TreasurePlacer extends Node3D
 
 const MAXIMUM_DEPTH:int = -1000 # lowest depth of treasure spawn
 const TREASURE_MIN:int = 35 # minimum number of treasure items
 const TREASURE_MAX:int = 50 # maximum number of treasure items
 const MAP_SQUARE_RADIUS:int = 100 # half the map size
+
+const TREASURE_SCENE:PackedScene = preload("res://objects/treasure/treasure.tscn")
 
 var ray:RayCast3D # ray to check depth
 var used_locations:Array[Vector2] = [] # array of all used locations
@@ -50,9 +53,9 @@ func _find_treasure_spot() -> void:
 	used_locations.append(Vector2(global_position.x, global_position.z))
 
 
+## Create a treasure object at the specified location.
 func _place_treasure(at:Vector3) -> void:
-	var mesh_instance:MeshInstance3D = MeshInstance3D.new()
-	mesh_instance.mesh = BoxMesh.new()
-	mesh_instance.top_level = true
-	add_child(mesh_instance)
-	mesh_instance.global_position = at
+	var treasure:Node3D = TREASURE_SCENE.instantiate()
+	treasure.top_level = true
+	add_child(treasure)
+	treasure.global_position = at

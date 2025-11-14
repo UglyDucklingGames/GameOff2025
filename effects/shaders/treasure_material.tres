@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dsus3xatlqi32"]
+
+[ext_resource type="Shader" uid="uid://djgh6mgcio2uv" path="res://effects/shaders/treasure.gdshader" id="1_31vwl"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_31vwl")
+shader_parameter/colour = Color(1, 0, 0.36078432, 1)

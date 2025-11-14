@@ -1,0 +1,10 @@
+{
+	"treasure":
+	[
+		{"tier":"Weak", "value":150, "depthmin":0, "depthmax":15, "col":"000052"},
+		{"tier":"Unstable", "value":250, "depthmin":10, "depthmax":25, "col":"ff005c"},
+		{"tier":"Stable", "value":500, "depthmin":23, "depthmax":50, "col":"000052"},
+		{"tier":"Strong", "value":750, "depthmin":40, "depthmax":100, "col":"000052"},
+		{"tier":"Pure", "value":1000, "depthmin":80, "depthmax":125, "col":"000052"}
+	]
+}
