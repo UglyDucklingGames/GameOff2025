@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://durgj0plulxl3"]
+[gd_scene load_steps=4 format=3 uid="uid://durgj0plulxl3"]
 
 [ext_resource type="Script" uid="uid://0ip585vtfqwm" path="res://objects/entities/player/player_controller.gd" id="1_7ffag"]
+[ext_resource type="PackedScene" uid="uid://j8l5ievy76ht" path="res://scenes/ui/shop/shop_interface.tscn" id="2_rv326"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7ffag"]
 size = Vector3(0.75, 1.75, 0.75)
@@ -72,3 +73,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ShopInterface" parent="UI" instance=ExtResource("2_rv326")]
+mouse_filter = 2

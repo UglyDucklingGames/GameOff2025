@@ -4,9 +4,9 @@ class_name PlayerController extends CharacterBody3D
 const MOUSE_SENS:float = 0.25
 const VLOOK_BOUNDS:float = 89.9 # vertical look bounds
 
-const BASE_SPEED:float = 5.0 # default movement speed m/s.
 const ACCEL_WATER:float = 5.0
 const ACCEL_LAND:float = 10.0
+const LAND_SPEED:float = 5.0
 
 const GRAVITY_WATER:float = -0.5 # was -1.0
 const JUMP_FORCE:float = 5.0
@@ -14,7 +14,7 @@ const JUMP_FORCE:float = 5.0
 const HEIGHT:float = 1.75
 
 const LUNG_OXYGEN_MAX:float = 5.0
-const BASE_OXYGEN:float = 20.0
+const BASE_OXYGEN:float = 20.0 # TODO remove this once stat is added
 const OXYGEN_REPLENISH_RATE:float = 5.0
 
 # Object references
@@ -27,11 +27,14 @@ const OXYGEN_REPLENISH_RATE:float = 5.0
 @onready var interact_ray: RayCast3D = %InteractRay
 @onready var interact_text: Label = %InteractText
 
+# Stats
+var stat_speed:Stat = PlayerData.get_stat_speed()
+
 var debug_mode:bool = false
 
 var in_water:bool = true
 var head_in_water:bool = true
-var speed:float = BASE_SPEED
+var swim_speed:float = stat_speed.get_current_data()
 
 var depth:float
 
@@ -44,6 +47,14 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED # capture mouse when player is active
 	
 	debug_mode = OS.has_feature("debug")
+	
+	_initialise_stats()
+
+
+func _initialise_stats() -> void:
+	stat_speed.upgraded.connect(func() -> void: 
+		swim_speed = stat_speed.get_current_data()
+		print(swim_speed))
 
 
 func _physics_process(delta: float) -> void:
@@ -60,7 +71,7 @@ func _physics_process(delta: float) -> void:
 	# Depth guage
 	depth = Water.get_depth(global_position.y)
 	depth_guage.text = "Depth: " + "%.1f" % depth + "m"
-	depth_guage.text += "\nMoney: " + str(PlayerData.get_money())
+	depth_guage.text += "\nMoney: $" + str(PlayerData.get_money())
 	depth_guage.text += "\nO2: " + "%.1f" % oxygen + "s"
 	
 	_process_interaction()
@@ -154,7 +165,7 @@ func _move_water(delta: float) -> void:
 		current_gravity = 0.0
 	
 	# Acceleration
-	velocity = velocity.lerp((dir*speed) + Vector3(0,current_gravity,0), ACCEL_WATER*delta)
+	velocity = velocity.lerp((dir*swim_speed) + Vector3(0,current_gravity,0), ACCEL_WATER*delta)
 	
 	move_and_slide()
 
@@ -174,8 +185,8 @@ func _move_land(delta: float) -> void:
 			velocity.y = JUMP_FORCE
 	
 	# Acceleration
-	velocity.x = lerpf(velocity.x, dir.x*speed, ACCEL_LAND*delta)
-	velocity.z = lerpf(velocity.z, dir.z*speed, ACCEL_LAND*delta)
+	velocity.x = lerpf(velocity.x, dir.x*LAND_SPEED, ACCEL_LAND*delta)
+	velocity.z = lerpf(velocity.z, dir.z*LAND_SPEED, ACCEL_LAND*delta)
 	
 	move_and_slide()
 

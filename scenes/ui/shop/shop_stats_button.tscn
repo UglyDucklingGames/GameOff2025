@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://nvqim2g6bnhp"]
+
+[ext_resource type="Script" uid="uid://befpcxvoddiaw" path="res://scenes/ui/shop/shop_stats_button.gd" id="1_3e1bm"]
+
+[node name="ShopStatsButton" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_3e1bm")
+
+[node name="UpgradeName" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Upgrade Name"
+horizontal_alignment = 1
+
+[node name="NewStat" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Upgrade STAT to VALUEunit"
+horizontal_alignment = 1
+
+[node name="CurrentStat" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Current: VALUEunit"
+horizontal_alignment = 1
+
+[node name="BuyButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "$1000"
+
+[connection signal="pressed" from="BuyButton" to="." method="_on_buy_button_pressed"]

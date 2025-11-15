@@ -1,0 +1,8 @@
+{
+	"stats":
+	[
+		{"name":"Base", "data": 5, "value": 0},
+		{"name":"Flippers", "data": 8, "value": 350},
+		{"name":"Ultra Divers", "data": 10, "value": 800}
+	]
+}
