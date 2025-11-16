@@ -14,7 +14,6 @@ const JUMP_FORCE:float = 5.0
 const HEIGHT:float = 1.75
 
 const LUNG_OXYGEN_MAX:float = 5.0
-const BASE_OXYGEN:float = 20.0 # TODO remove this once stat is added
 const OXYGEN_REPLENISH_RATE:float = 5.0
 
 # Object references
@@ -29,6 +28,7 @@ const OXYGEN_REPLENISH_RATE:float = 5.0
 
 # Stats
 var stat_speed:Stat = PlayerData.get_stat_speed()
+var stat_oxygen:Stat = PlayerData.get_stat_oxygen()
 
 var debug_mode:bool = false
 
@@ -38,7 +38,7 @@ var swim_speed:float = stat_speed.get_current_data()
 
 var depth:float
 
-var oxygen_capacity:float = BASE_OXYGEN
+var oxygen_capacity:float = stat_oxygen.get_current_data()
 var oxygen:float = oxygen_capacity
 var lung_oxygen:float = LUNG_OXYGEN_MAX # last resort before death
 
@@ -52,9 +52,10 @@ func _ready() -> void:
 
 
 func _initialise_stats() -> void:
-	stat_speed.upgraded.connect(func() -> void: 
-		swim_speed = stat_speed.get_current_data()
-		print(swim_speed))
+	stat_speed.upgraded.connect(func() -> void: swim_speed = stat_speed.get_current_data())
+	stat_oxygen.upgraded.connect(func() -> void: 
+		oxygen_capacity = stat_oxygen.get_current_data()
+		oxygen = oxygen_capacity)
 
 
 func _physics_process(delta: float) -> void:

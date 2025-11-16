@@ -1,0 +1,9 @@
+{
+	"stats":
+	[
+		{"name":"Base", "data": 20, "value": 0},
+		{"name":"Oxygen Tank", "data": 30, "value": 600},
+		{"name":"Double Oxygen Tank", "data": 40, "value": 1500},
+		{"name":"Rebreather", "data": 50, "value": 3000}
+	]
+}

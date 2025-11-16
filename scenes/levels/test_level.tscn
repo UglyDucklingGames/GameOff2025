@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bm5p6hcm2uox"]
+[gd_scene load_steps=10 format=3 uid="uid://bm5p6hcm2uox"]
 
 [ext_resource type="PackedScene" uid="uid://durgj0plulxl3" path="res://objects/entities/player/player_controller.tscn" id="1_jbqir"]
 [ext_resource type="Texture2D" uid="uid://bl0whf7c6raux" path="res://icon.svg" id="2_yautc"]
@@ -15,6 +15,14 @@ size = Vector2(100, 100)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_48ne7"]
 data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v45ci"]
+albedo_texture = ExtResource("2_yautc")
+uv1_scale = Vector3(100, 100, 100)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_48ne7"]
+material = SubResource("StandardMaterial3D_v45ci")
+size = Vector2(400, 400)
 
 [node name="TestLevel" type="Node3D"]
 
@@ -81,6 +89,16 @@ skeleton = NodePath("../..")
 [node name="StaticBody3D" type="StaticBody3D" parent="Underwater/TestSurface5"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Underwater/TestSurface5/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_48ne7")
+
+[node name="TestSurface7" type="MeshInstance3D" parent="Underwater"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -150, 0)
+mesh = SubResource("PlaneMesh_48ne7")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Underwater/TestSurface7"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Underwater/TestSurface7/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_48ne7")
 
 [node name="TreasurePlacer" type="Node3D" parent="Underwater"]
